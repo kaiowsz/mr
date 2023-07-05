@@ -14,13 +14,13 @@ const Nav = () => {
   const [providers, setProviders] = useState<any>([])
 
   useEffect(() => {
-    const setProviders = async () => {
+    const takeProviders = async () => {
       const response = await getProviders();
 
       setProviders(response)
     }
 
-    setProviders()
+    takeProviders()
   })
   
   return (
