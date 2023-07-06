@@ -12,6 +12,7 @@ const Nav = () => {
   const isUserLoggedIn: boolean = true
 
   const [providers, setProviders] = useState<any>([])
+  const [toggleDropdown, setToggleDropdown] = useState<boolean>(false)
 
   useEffect(() => {
     const takeProviders = async () => {
@@ -36,7 +37,7 @@ const Nav = () => {
             Create Post
           </Link>
 
-          <button type="button" onClick={signOut} className="outline_btn">Sign Out</button>
+          <button type="button" onClick={() => signOut} className="outline_btn">Sign Out</button>
 
           <Link href="/profile">
             <Image src="/assets/images/logo.svg"
@@ -63,12 +64,28 @@ const Nav = () => {
 
       <div className="sm:hidden flex relative">
         {isUserLoggedIn ? (
-          <div className="flex">
+          <div className="flex hover:pointer">
             <Image src="/assets/images/logo.svg"
             width={37}
             height={37}
             alt="Profile photo"
+            onClick={() => setToggleDropdown((prev): boolean => !prev)}
             />
+
+            {toggleDropdown && (
+              <div className="dropdown">
+                <Link href="/profile" className="dropdown_link" onClick={() => setToggleDropdown(false)}>
+                  My Profile
+                </Link>
+                <Link href="/create-prompt" className="dropdown_link" onClick={() => setToggleDropdown(false)}>
+                  Create Prompt
+                </Link>
+                <button type="button" onClick={() => {
+                  setToggleDropdown(false)
+                  signOut()
+                  }} className="mt-5 w-full black_btn">Sign Out</button>
+              </div>
+            )}
           </div>
         ) : (
           <>
