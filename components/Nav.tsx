@@ -65,7 +65,7 @@ const Nav = () => {
       <div className="sm:hidden flex relative">
         {isUserLoggedIn ? (
           <div className="flex hover:pointer">
-            <Image src="/assets/images/logo.svg"
+            <Image className="hover-photo" src="/assets/images/logo.svg"
             width={37}
             height={37}
             alt="Profile photo"
