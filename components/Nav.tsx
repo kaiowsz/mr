@@ -5,11 +5,12 @@ import Link from "next/link"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { signIn, signOut, useSession, getProviders } from "next-auth/react"
-
+import { UserType } from "@/types/main"
+import { Session } from "next-auth"
 
 
 const Nav = () => {
-  const { data: session } = useSession()
+  const { data: session }: {data: Session | UserType | any}  = useSession()
 
   console.log(session)
 
@@ -67,7 +68,7 @@ const Nav = () => {
       <div className="sm:hidden flex relative">
         {session?.user ? (
           <div className="flex hover:pointer">
-            <Image className="hover-photo" src="/assets/images/logo.svg"
+            <Image className="hover-photo rounded-full" src={session?.user.image}
             width={37}
             height={37}
             alt="Profile photo"
