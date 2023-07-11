@@ -21,7 +21,6 @@ const handler = NextAuth({
 
         return session
     },
-
     async signIn({ profile }) {
         try {
             await connectToDB();
@@ -39,9 +38,9 @@ const handler = NextAuth({
                     image: profile.picture
                 })
             }
-
+            return true
         } catch (error) {
-            
+            return false
         }
     },
 })
