@@ -12,8 +12,6 @@ import { Session } from "next-auth"
 const Nav = () => {
   const { data: session }: {data: Session | UserType | any}  = useSession()
 
-  console.log(session)
-
   const [providers, setProviders] = useState<any>([])
   const [toggleDropdown, setToggleDropdown] = useState<boolean>(false)
 
@@ -40,7 +38,7 @@ const Nav = () => {
             Create Post
           </Link>
 
-          <button type="button" onClick={() => signOut} className="outline_btn">Sign Out</button>
+          <button type="button" onClick={() => {setToggleDropdown(false); signOut()}} className="outline_btn">Sign Out</button>
 
           <Link href="/profile">
             <Image className="rounded-full" src={session?.user.image}

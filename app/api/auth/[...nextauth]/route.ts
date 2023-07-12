@@ -5,43 +5,62 @@ import GoogleProvider from "next-auth/providers/google"
 import User from "@/models/user"
 import { connectToDB } from "@/utils/database";
 
+interface Session {
+    user: {
+        name: string;
+        email: string;
+        image: string;
+        id: string;
+    },
+    expires: string;
+}
+
+interface Profile {
+    email: string;
+    name: string;
+    picture: string;
+}
+
 const handler = NextAuth({
     providers: [
         GoogleProvider({
-            clientId: `${process.env.GOOGLE_ID}`,
-            clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`
+            clientId: process.env.GOOGLE_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET
         })
     ],
-    async session({ session }) {
-        const sessionUser = await User.findOne({
-            email: session.user.email
-        })
-
-        session.user.id = sessionUser._id.toString();
-
-        return session
-    },
-    async signIn({ profile }) {
-        try {
-            await connectToDB();
-            
-            // user exists?
-            const userExists = await User.findOne({
-                email: profile.email
+    callbacks: {
+        async session({ session }: { session: Session | any }) {
+            const sessionUser = await User.findOne({
+                email: session.user.email
             })
+    
+            session.user.id = sessionUser._id.toString();
 
-            // if not, create a new.
-            if(!userExists) {
-                await User.create({
-                    email: profile.email,
-                    username: profile.name.replace(" ", "").toLowerCase(),
-                    image: profile.picture
+            return session
+        },
+        async signIn({ profile }: { profile: Profile | any }) {
+            try {
+                await connectToDB();
+                
+                console.log(profile)
+                // user exists?
+                const userExists = await User.findOne({
+                    email: profile.email
                 })
+    
+                // if not, create a new.
+                if(!userExists) {
+                    await User.create({
+                        email: profile.email,
+                        username: profile.name.replace(" ", "").toLowerCase(),
+                        image: profile.picture
+                    })
+                }
+                return true
+            } catch (error) {
+                return false
             }
-            return true
-        } catch (error) {
-            return false
-        }
+        },
     },
 })
 
