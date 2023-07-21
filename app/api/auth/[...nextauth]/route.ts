@@ -1,7 +1,5 @@
 import NextAuth from "next-auth/next";
-import { GOOGLE_FONT_PROVIDER } from "next/dist/shared/lib/constants";
 import GoogleProvider from "next-auth/providers/google"
-
 import User from "@/models/user"
 import { connectToDB } from "@/utils/database";
 
@@ -41,9 +39,8 @@ const handler = NextAuth({
         async signIn({ profile }: { profile: Profile | any }) {
             try {
                 await connectToDB();
-                
-                console.log(profile)
-                // user exists?
+
+                // verify if user exists
                 const userExists = await User.findOne({
                     email: profile.email
                 })
