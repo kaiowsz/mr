@@ -39,7 +39,6 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }: FormProps) => {
           value={post.tag}
           onChange={(event) => setPost({...post, tag: event.target.value})}
           placeholder="#tag"
-          required
           className="form_input"
           />
         </label>
@@ -47,7 +46,12 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }: FormProps) => {
         <div className="flex-end mx-3 mb-5 gap-4">
           <Link className="text-gray-500 text-sm" href="/">Cancel</Link>
 
-          <button type="submit" disabled={submitting}>{submitting ? `${type}...` : type}</button>
+          <button 
+          type="submit"
+          className="px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white" 
+          disabled={submitting}>
+            {submitting ? `${type}...` : type}
+          </button>
         </div>
 
       </form>
