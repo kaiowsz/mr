@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PromptCard = () => {
+const PromptCard = ({ post, handleTagClick }: any) => {
   return (
     <div>PromptCard</div>
   )
