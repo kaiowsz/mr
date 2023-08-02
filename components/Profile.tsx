@@ -1,6 +1,7 @@
 import React from "react"
 import PromptCard from "./PromptCard"
 
+import Loader from "@/components/Loader"
 
 const Profile = ({ name, desc, data, handleEdit, handleDelete }: any) => {
   return (
@@ -17,6 +18,8 @@ const Profile = ({ name, desc, data, handleEdit, handleDelete }: any) => {
           handleEdit={() => handleEdit && handleEdit(post)} 
           handleDelete={() => handleDelete && handleDelete(post)}/>
         ))}
+
+        {data.length === 0 && <Loader/>}
       </div>
     </section>
   )

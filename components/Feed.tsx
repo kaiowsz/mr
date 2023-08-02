@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import PromptCard from "./PromptCard"
+import Loader from "./Loader"
 
 const PromptCardList = ({ data, handleTagClick }: any) => {
 
@@ -38,6 +39,8 @@ const Feed = () => {
   
   return (
     <section className="feed">
+      {console.log(posts.length)}
+
       <form className="relative w-full flex-center">
         <input type="text" 
         placeholder="Search for a tag or a username" 
@@ -47,6 +50,7 @@ const Feed = () => {
         className="search_input peer" />
       </form>
       
+      {posts.length === 0 && <Loader/>}
       <PromptCardList data={posts} handleTagClick={() => {}} />
 
     </section>
