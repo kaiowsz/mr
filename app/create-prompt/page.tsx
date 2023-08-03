@@ -25,6 +25,12 @@ const CreatePrompt = () => {
         setSubmitting(true);
 
         try {
+            if(post.prompt.trim() === "") {
+                alert("Prompt empty.")
+                return
+
+            }
+
             const response = await fetch("/api/prompt/new", {
                 method: "POST",
                 body: JSON.stringify({

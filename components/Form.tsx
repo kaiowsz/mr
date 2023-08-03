@@ -10,6 +10,18 @@ interface FormProps {
 }
 
 const Form = ({ type, post, setPost, submitting, handleSubmit }: FormProps) => {
+
+  const verifyTag = (event: any) => {
+    let tag: string = event.target.value
+    
+    setPost({...post, tag: tag.split(" ").join("")})
+  }
+
+  const verifyPrompt = (event: any) => {
+    let prompt: string = event.target.value;
+    setPost({...post, prompt: event.target.value})
+  }
+
   return (
     <section className="w-full max-w-full flex-start flex-col">
       <h1 className="head_text text-left blue_gradient">{type} Post</h1>
@@ -22,10 +34,10 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }: FormProps) => {
 
           <textarea
           value={post.prompt}
-          onChange={(event) => setPost({...post, prompt: event.target.value})}
+          onChange={(event) => verifyPrompt(event)}
           placeholder="Write your prompt here..."
           required
-          className="form_textarea"
+          className="form_textarea resize-none"
           >
 
           </textarea>
@@ -33,14 +45,15 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }: FormProps) => {
 
 
         <label>
-          <span className="font-satoshi font-semibold text-base text-gray-700">Tag <span className="font-normal"> (#product, #webdevelopment, #idea)</span></span>
+          <span className="font-satoshi font-semibold text-base text-gray-700">Tag - only 1 allowed <span className="font-normal"> (#product, #webdevelopment, #idea)</span></span>
 
-          <input
-          value={post.tag}
-          onChange={(event) => setPost({...post, tag: event.target.value})}
-          placeholder="#tag"
-          className="form_input"
-          />
+            <input
+            value={`${post.tag}`}
+            onChange={(event) => verifyTag(event)}
+            placeholder="#tag"
+            className="form_input"
+            />
+
         </label>
 
         <div className="flex-end mx-3 mb-5 gap-4">
@@ -50,7 +63,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }: FormProps) => {
           type="submit"
           className="px-5 py-1.5 text-sm bg-primary-orange rounded-full text-white" 
           disabled={submitting}>
-            {submitting ? `${type}...` : type}
+            {submitting ? `Creating...` : type}
           </button>
         </div>
 
