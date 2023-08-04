@@ -2,12 +2,13 @@
 
 import React from "react"
 
-
 import { useState } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
+import toast, { Toaster } from "react-hot-toast"
 
 import Form from "@/components/Form"
+
 
 const CreatePrompt = () => {
 
@@ -28,7 +29,11 @@ const CreatePrompt = () => {
             if(post.prompt.trim() === "") {
                 alert("Prompt empty.")
                 return
+            }
 
+            if(!session) {
+                toast.error("You need to log in before post something.")
+                return
             }
 
             const response = await fetch("/api/prompt/new", {
@@ -51,6 +56,8 @@ const CreatePrompt = () => {
     }
   
     return (
+        <>
+        <Toaster />
         <Form 
         type="Create"
         post={post}
@@ -58,6 +65,7 @@ const CreatePrompt = () => {
         submitting={submitting}
         handleSubmit={createPrompt}
         />
+        </>
     )
 }
 

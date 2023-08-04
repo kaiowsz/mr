@@ -19,8 +19,14 @@ const Feed = () => {
   
   const [searchText, setSearchText] = useState<string>("")
   const [posts, setPosts] = useState<any>([])
+  const [filteredPosts, setFilteredPosts] = useState([])
 
   const handleSearchChange = (event: any) => {
+    setSearchText(event.target.value)
+
+    setFilteredPosts(posts.filter((post: any) => (post.tag.includes(searchText) || post.creator.username.includes(searchText))))
+
+    console.log(filteredPosts)
 
   }
 
@@ -39,19 +45,22 @@ const Feed = () => {
   
   return (
     <section className="feed">
-      {console.log(posts.length)}
 
       <form className="relative w-full flex-center">
         <input type="text" 
         placeholder="Search for a tag or a username" 
         value={searchText} 
-        onChange={handleSearchChange} 
+        onChange={event => handleSearchChange(event)} 
         required 
         className="search_input peer" />
       </form>
       
       {posts.length === 0 && <Loader/>}
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+      
+
+      {filteredPosts.length > 0 && searchText.trim() !== "" ? 
+      <PromptCardList data={filteredPosts} handleTagClick={() => {}} />
+      : <PromptCardList data={posts} handleTagClick={() => {}} />}
 
     </section>
   )
