@@ -30,6 +30,7 @@ export const PATCH = async (request: any, {params}: any) => {
 
         existingPrompt.prompt = prompt;
         existingPrompt.tag = tag;
+        existingPrompt.isEdited = true;
 
         await existingPrompt.save()
 
