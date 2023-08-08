@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { Toaster, toast } from "react-hot-toast"
+import Link from "next/link"
 
 import Profile from "@/components/Profile"
 
@@ -86,7 +87,8 @@ const ProfilePage = () => {
     return (
         <>
             <Toaster />
-            <Profile name="My" desc="Welcome to your personalized profile page!" data={posts} handleEdit={handleEdit} handleDelete={handleDelete} />
+            
+            {posts.length > 0 ? <Profile name="My" desc="Welcome to your personalized profile page!" data={posts} handleEdit={handleEdit} handleDelete={handleDelete} /> : <h1>You don't have posts yet. <Link className="underline" href="/create-prompt">Click here</Link> to create one.</h1>}
         </>
     )
 }
