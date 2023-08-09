@@ -22,8 +22,8 @@ interface Profile {
 const handler = NextAuth({
     providers: [
         GoogleProvider({
-            clientId: process.env.GOOGLE_ID,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET
+            clientId: `${process.env.GOOGLE_ID}`,
+            clientSecret: `${process.env.GOOGLE_CLIENT_SECRET}`
         })
     ],
     callbacks: {
@@ -36,7 +36,7 @@ const handler = NextAuth({
 
             return session
         },
-        async signIn({ profile }: { profile: Profile | any }) {
+        async signIn({profile}: any) {
             try {
                 await connectToDB();
 

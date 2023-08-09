@@ -27,8 +27,6 @@ const ProfilePage = () => {
         fetchPosts()
     }, [])
 
-    // {`${posts[0]?.creator.username ? posts[0].creator.username : "Unknown"}`}
-
     return (
         <Profile name={`${posts[0]?.creator.username ? posts[0].creator.username + "'s" : ""}`} desc="" data={posts} />
     )

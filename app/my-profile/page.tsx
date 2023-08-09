@@ -10,7 +10,7 @@ import Profile from "@/components/Profile"
 
 const ProfilePage = () => {
 
-    const { data: session } = useSession()
+    const { data: session }: { data: any } = useSession()
     const [posts, setPosts] = useState([])
     const router = useRouter()
 
