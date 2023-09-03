@@ -25,9 +25,6 @@ const Feed = () => {
     setSearchText(event.target.value)
 
     setFilteredPosts(posts.filter((post: any) => (post.tag.includes(searchText) || post.creator.username.includes(searchText))))
-
-    console.log(filteredPosts)
-
   }
 
   

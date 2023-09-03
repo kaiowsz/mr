@@ -19,8 +19,6 @@ const ProfilePage = () => {
             const response = await fetch(`/api/users/${userId}/posts`);
             const data = await response.json();
 
-            console.log(data)
-
             setPosts(data)
         }
 
